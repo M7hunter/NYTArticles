@@ -1,6 +1,7 @@
 package com.m7.nyarticles.di
 
 import com.m7.nyarticles.BuildConfig
+import com.m7.nyarticles.ConnectivityHandler
 import com.m7.nyarticles.data.source.ArticlesDataSource
 import com.m7.nyarticles.data.source.remote.APIs
 import com.m7.nyarticles.data.source.remote.ArticlesRemoteDataSource
@@ -24,8 +25,8 @@ class AppModule {
         DefaultArticlesRepo(articlesDataSource) as ArticlesRepo
 
     @Provides
-    fun provideArticlesRemoteDateSource(apIs: APIs) =
-        ArticlesRemoteDataSource(apIs) as ArticlesDataSource
+    fun provideArticlesRemoteDateSource(apIs: APIs, connectivityHandler: ConnectivityHandler) =
+        ArticlesRemoteDataSource(apIs, connectivityHandler) as ArticlesDataSource
 
     @Provides
     fun provideAPIs(okHttpClient: OkHttpClient): APIs = Retrofit.Builder()

@@ -8,10 +8,10 @@ import java.lang.IllegalArgumentException
 import java.net.ConnectException
 import javax.inject.Inject
 
-class ArticlesRemoteDataSource @Inject constructor(private val apIs: APIs): ArticlesDataSource {
-
-    @Inject
-    lateinit var connectivityHandler: ConnectivityHandler
+class ArticlesRemoteDataSource @Inject constructor(
+    private val apIs: APIs,
+    private val connectivityHandler: ConnectivityHandler
+) : ArticlesDataSource {
 
     override suspend fun getArticlesBySection(
         section: String,
@@ -24,7 +24,7 @@ class ArticlesRemoteDataSource @Inject constructor(private val apIs: APIs): Arti
                 apIs.getArticlesBySection(section, numOfArticles).let {
                     if (it.isSuccessful) {
                         it.body()?.let {
-                            if (it.results.isNotEmpty()){
+                            if (it.results.isNotEmpty()) {
                                 CallState.success(it.results)
                             } else {
                                 CallState.error(Exception("no articles found"))

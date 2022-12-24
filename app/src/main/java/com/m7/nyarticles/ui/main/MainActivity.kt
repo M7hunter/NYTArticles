@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
                         CallState.Status.ERROR -> {
                             progressBar.hide()
+
                             it.ex?.also { ex ->
                                 ex.printStackTrace()
                                 Toast.makeText(this@MainActivity, ex.message, Toast.LENGTH_LONG)
